@@ -1,37 +1,78 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photon</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/photon.css" />
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css" />
 
-    <title>Hello, world!</title>
 </head>
 
 <body>
-    <div id="app" class="container-fluid">
-        <h1>{{ message }}</h1>
+    <!-- Wrap your entire app inside .window -->
+    <div class="window" id="app">
+        <!-- .toolbar-header sits at the top of your app -->
+        <header class="toolbar toolbar-header">
+            <div class="toolbar-actions">
+                <div class="btn-group">
+                    <button class="btn btn-default" v-for="m in menu" :name="m.name">
+                        <span class="icon icon-home"></span>
+                    </button>
+                    <!-- <button class="btn btn-default">
+                        <span class="icon icon-folder"></span>
+                    </button> -->
+                    <!-- <button class="btn btn-default active">
+                    <span class="icon icon-cloud"></span>
+                    </button>
+                    <button class="btn btn-default">
+                    <span class="icon icon-popup"></span>
+                    </button>
+                    <button class="btn btn-default">
+                    <span class="icon icon-shuffle"></span>
+                    </button> -->
+                </div>
+
+                <!-- <button class="btn btn-default">
+                    <span class="icon icon-home icon-text"></span>
+                    Filters
+                </button>
+
+                <button class="btn btn-default btn-dropdown pull-right">
+                    <span class="icon icon-megaphone"></span>
+                </button> -->
+            </div>
+        </header>
+
+        <!-- Your app's content goes inside .window-content -->
+        <div class="window-content">
+            <div class="container-fluid">
+                <h1>{{ message }}</h1>
+                <div class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        v-model="searchText">
+                    <button class="btn btn-outline-success" v-on:click="searchCustomer">Search</button>
+                </div>
+                <ul class="list-group">
+                    <div class="card" v-for="customer in customers" :name="customer.name">
+                        <div class="card-header">{{ customer.name }}</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">
+                                With supporting text below as a natural lead-in to additional
+                                content.
+                            </p>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
     </div>
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
-    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
-    <script src="renderer.js"></script>
 </body>
+<!-- Electron Javascript -->
+<!-- <script src="app.js" charset="utf-8"></script> -->
+<script src="./js/vue.min.js"></script>
+<script src="./js/app.js" charset="utf-8"></script>
 
 </html>

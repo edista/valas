@@ -17,6 +17,13 @@ contextBridge.exposeInMainWorld(
             // Deliberately strip event as it includes `sender` 
             ipcRenderer.on(channel, (event, ...args) => func(...args));
         }
+    },
+    fetchallCustomers: async (params) => {
+        console.log("ipc called")
+        return await ipcRenderer.invoke('fetchall-customers', params)
+    },
+    searchCustomers: async (params) => {
+        return await ipcRenderer.invoke('search-customers', params)
     }
 }
 );

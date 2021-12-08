@@ -4,6 +4,7 @@ const sqlite3 = require("sqlite3").verbose();
 
 
 class Session {
+    #db;
     constructor(db) {
         this.#db = db
     }
@@ -13,29 +14,36 @@ class Session {
             stmt.run(param);
             stmt.finalize();
         } catch (error) {
-
+            console.log(error.message);
         }
     }
-    select(sql, params, callback) {
-        var stmt = this.#db.prepare(sql);
-        stmt.each(sql, params, (err, row) => {
-            if (err) {
-                throw err;
-            }
+    async select(sql, params) {
+        return new Promise(resolve => {
+            try {
+                var stmt = this.#db.prepare(sql);
+                stmt.all(params, (err, rows) => {
+                    if (err) {
+                        throw err;
+                    }
+                    resolve(rows);
+                });
+                stmt.finalize();
+            } catch (error) {
+                console.log("error here");
 
-            if (callback) {
-                callback(row);
+                console.log(error.message);
             }
-        });
+        })
     }
 }
 
 class Database {
+    #db;
     constructor(uri = null) {
         this.uri = uri
         this.#db = null
     }
-    setup(url) {
+    setup(uri) {
         this.uri = uri
     }
     open() {
@@ -62,11 +70,11 @@ class Database {
             this.open()
         }
 
-        session = Session(this.#db);
+        const session = new Session(this.#db);
 
-        this.db.serialize(() => {
+        this.#db.serialize(() => {
             if (transaction) {
-                transaction(session);
+                return transaction(session);
             }
         });
 

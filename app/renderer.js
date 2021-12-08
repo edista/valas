@@ -4,16 +4,3 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
-
-var app = new Vue({
-    el: '#app',
-    data: {
-        message: 'Hello Vue!'
-    }
-})
-
-var createCustomer = function (data) {
-    window.api.send("create-customer", data)
-}
-
-createCustomer({ name: "Edi Surata" })
